@@ -1,10 +1,41 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import styles from '../styles/Home.module.scss'
+import styles from "../styles/Home.module.scss";
 import { Header } from "../components/Header";
 import { MovieCard } from "../components/MovieCard";
+import { api } from "../services/api";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const Home: NextPage = () => {
+interface Movie {
+  
+		id: number
+    title: string;
+		release_date: string
+		vote_average: number
+		poster_path: string
+		price: string
+  
+}
+
+
+
+const Home = () => {
+
+	const [page, setPage] = useState(1)
+	const [movies, setMovies] = useState<Movie[]>([])
+
+		
+	useEffect(() => {		
+		axios.get(`/api/movies/${page}`).then(res => {
+			setMovies([...res.data.data])
+			console.log(movies)
+		})		
+		
+	},[])
+
+	console.log(movies)
+  
   return (
     <div>
       <Head>
@@ -15,51 +46,28 @@ const Home: NextPage = () => {
       <Header />
       <main className="routes">
         <div className={styles.container}>
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+					
+          {
+						movies.map(item => {
+							return <MovieCard 
+								key={item.id}
+								id={item.id}
+								poster_path={item.poster_path}
+								price={item.price}
+								title={item.title}
+								vote_average={item.vote_average								
+								}
+							/>
+						})
+					}        
         </div>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default Home
+
+
+
+

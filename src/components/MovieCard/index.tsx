@@ -4,25 +4,33 @@ import { PrimaryButton } from "../PrimaryButton";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 
-export function MovieCard() {
+interface Props {
+  id: number;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  price: string;
+}
+
+export function MovieCard({ poster_path, title, vote_average, price }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles["image-container"]}>
-				<div>
-          <Image src="https://picsum.photos/200/300" layout="fill" objectFit="cover"/>
-				</div>        
-        
+        <div>
+          <Image src={poster_path} layout="fill" objectFit="cover" />
+        </div>
       </div>
       <div className={styles["title-container"]}>
-        <h3>Titulo</h3>
+        <div>
+          <h4>{title}</h4>
+        </div>
         <div>
           <div style={{ marginRight: ".7rem" }}>
             <AiFillStar />
-            <h4>7</h4>
+            <h4>{vote_average}</h4>
           </div>
-          <h4>Genero</h4>
         </div>
-        <h5>Preco</h5>
+        <h5>{price}</h5>
       </div>
       <div className={styles["btn-container"]}>
         <PrimaryButton label="Adicionar" />
