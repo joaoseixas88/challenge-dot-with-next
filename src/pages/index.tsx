@@ -25,6 +25,37 @@ const Home: NextPage = () => {
           <MovieCard />
           <MovieCard />
           <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
+          <MovieCard />
         </div>
       </main>
     </div>

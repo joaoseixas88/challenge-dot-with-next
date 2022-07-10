@@ -1,4 +1,7 @@
 .header{
+	position: fixed;
+	z-index: 10;
+	width: 100%;
 	display: flex;	
 	background: var(--primaryGreen);
 	height: 3.25rem;
@@ -52,7 +55,6 @@
 	align-items: center;
 	justify-content: center;
 	gap: 1.5rem;
-
 	div{
 		display: flex;
 		align-items: center;

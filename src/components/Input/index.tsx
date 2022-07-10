@@ -1,7 +1,11 @@
 import styles from './styles.module.scss'
 
-export function Input(){
+interface Props{
+	placeholder?: string
+}
+
+export function Input({placeholder}:Props){
 	return (
-		<input />
+		<input className={styles.container} placeholder={placeholder}/>
 	)
 }
