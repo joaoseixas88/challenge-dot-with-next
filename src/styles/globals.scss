@@ -1,0 +1,48 @@
+html,
+
+:root{
+	--primaryGreen: #8dd7cf;	
+	--secondaryGreen: #97bec3;
+	--primaryYellow: #fbe192;
+	--primaryPurple: #6558f5;
+	--secondaryPurple: #c7c3fb;
+	--primaryGray: #4b5c6b;
+	--shape: #FFF;
+	--borderColor: #c3cfd9;
+	--textColor: #293845;
+	--primaryBlack: #000;
+
+	font-size: 16px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	background: var(--shape);
+}
+
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.routes{
+	display: flex;
+	justify-content: center;
+	padding: 2.5rem 0;
+	height: 10%;
+}
+
+button{
+	cursor: pointer;	
+}
