@@ -31,6 +31,7 @@ export function MovieCartCard({ item }: Props) {
       <td className={styles.center}>{item.quantity}</td>
       <td className={styles.center}>{formatCurrency(String(item.price))}</td>
       <td className={styles.center}>
+				
         <FaTrash color={"#4b5c6b"} />
       </td>
     </tr>
