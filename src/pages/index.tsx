@@ -38,8 +38,6 @@ const Home = () => {
     });
 	}
 
-	
-
   return (
     <div>
       <Head>
