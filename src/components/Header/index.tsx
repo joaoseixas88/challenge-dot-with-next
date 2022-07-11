@@ -14,6 +14,7 @@ import { useAsideContext } from "../../hooks/AsidesContext";
 import axios from "axios";
 import { Movie } from "../../pages";
 import { useMovies } from "../../hooks/MoviesContext";
+import { useRouter } from "next/router";
 
 
 export function Header() {
@@ -44,12 +45,7 @@ export function Header() {
     isAsideFavoriteOpen ? closeFavorite() : openFavorite();
   };
 	
-	// function handleLoadMore(){
-	// 	axios.get(`/api/movies/${page}`).then((res) => {
-  //     setMovies([...movies,...res.data.data]);
-	// 		setPage(page+1)
-  //   });
-	// }
+	const router = useRouter()
 
 	 function handleSearch(){
 
@@ -60,8 +56,8 @@ export function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <Image src={Logo} width={35} height={35} />
+      <div className={styles.logo}  onClick={() => router.push('/')}>
+        <Image src={Logo} width={35} height={35}/>
       </div>
       <div className={styles.searchBox}>
         <div>
