@@ -15,6 +15,7 @@ import axios from "axios";
 import { Movie } from "../../pages";
 import { useMovies } from "../../hooks/MoviesContext";
 import { useRouter } from "next/router";
+import { Overlay } from "../Overlay";
 
 
 export function Header() {
@@ -27,6 +28,7 @@ export function Header() {
     openFavorite,
     isAsideCartOpen,
     isAsideFavoriteOpen,
+		openOverlay
   } = useAsideContext();
 	const { setMovies } = useMovies()
   const store = useAppSelector<RootState>((store) => store);
@@ -37,12 +39,12 @@ export function Header() {
 
   const handleSetCartAside = () => {
     closeFavorite();
-    isAsideCartOpen ? closeCart() : openCart();
+    isAsideCartOpen ? closeCart() : openCart(), openOverlay() ;
   };
 
   const handleSetFavoriteAside = () => {
     closeCart();
-    isAsideFavoriteOpen ? closeFavorite() : openFavorite();
+    isAsideFavoriteOpen ? closeFavorite() : openFavorite(), openOverlay() ;
   };
 	
 	const router = useRouter()
@@ -83,6 +85,7 @@ export function Header() {
             <div className={styles["total-notification"]}>{quantity}</div>
           )}
         </div>
+				<Overlay/>
         <FavoriteAside />
         <CartAside />
       </div>

@@ -5,13 +5,14 @@ import { clearCart } from "../../store/slices/cart";
 import { RootState, useAppSelector } from "../../store/store";
 import { formatCurrency } from "../../utils/format";
 import { MiniCartCard } from "../MiniCartCard";
+import { Overlay } from "../Overlay";
 import { PrimaryButton } from "../PrimaryButton";
 import styles from "./styles.module.scss";
 
 
 
 export function CartAside() {
-  const { isAsideCartOpen, closeCart, closeFavorite } = useAsideContext();
+  const { isAsideCartOpen, closeCart, closeFavorite, closeOverlay } = useAsideContext();
   const store = useAppSelector<RootState>((store) => store);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,11 +28,13 @@ export function CartAside() {
   function handleFinishCart() {
 		closeCart()
 		closeFavorite()
+		closeOverlay()
     router.push("/cart");
   }
 
   return (
     <div className={isAsideCartOpen ? styles.container : styles["containter-closed"]}>
+			
       <div className={styles["cart-title"]}>
         <h2>Meu Carrinho</h2>
         <button onClick={handleClear}>Esvaziar</button>

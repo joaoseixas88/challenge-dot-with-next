@@ -14,6 +14,7 @@
 	border: 2px solid var(--borderColor);
 	overflow: scroll;
 	transition: .4s;	
+	z-index: 100;
 }
 
 .containter-closed{

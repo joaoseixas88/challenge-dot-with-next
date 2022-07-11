@@ -10,6 +10,9 @@ interface AsideContextProvider {
   isModalOpen: boolean
   closeModal: () => void;
   openModal: () => void;
+	showOverlay: boolean
+	openOverlay: () => void
+	closeOverlay: () => void
 }
 
 type ProviderProps = {
@@ -22,6 +25,7 @@ export function AsideContextProvider({ children }: ProviderProps) {
   const [isAsideFavoriteOpen, setIsAsideFavoriteOpen] = useState(false);
   const [isAsideCartOpen, setIsAsideCartOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+	const [showOverlay, setShowOverlay] = useState(false);
 
   const closeFavorite = () => {
     setIsAsideFavoriteOpen(false);
@@ -47,6 +51,14 @@ export function AsideContextProvider({ children }: ProviderProps) {
 	function openModal(){
 		setIsModalOpen(true)
 	}
+
+	function openOverlay(){
+		setShowOverlay(true)
+	}
+
+	function closeOverlay(){
+		setShowOverlay(false)
+	}
   return (
     <AsideContext.Provider
       value={{
@@ -58,7 +70,10 @@ export function AsideContextProvider({ children }: ProviderProps) {
         openFavorite,
 				closeModal,
 				isModalOpen,
-				openModal
+				openModal,
+				showOverlay,
+				openOverlay,
+				closeOverlay
       }}
     >
       {children}
