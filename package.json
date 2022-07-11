@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "@hookform/resolvers": "^2.9.5",
     "@reduxjs/toolkit": "^1.8.3",
     "@types/react-input-mask": "^3.0.1",

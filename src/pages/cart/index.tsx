@@ -13,6 +13,7 @@ import { useAsideContext } from "../../hooks/AsidesContext";
 import { RootState, useAppSelector } from "../../store/store";
 import { formatCurrency } from "../../utils/format";
 import styles from "./styles.module.scss";
+import { isValidCPF } from '@brazilian-utils/brazilian-utils';
 
 export default function Cart() {
   const store = useAppSelector((store: RootState) => store);
@@ -20,9 +21,19 @@ export default function Cart() {
   const { openModal, closeModal, isModalOpen } = useAsideContext();
   const schema = yup.object({
     name: yup.string().required("Campo obrigatório"),
-    cpf: yup.string().required("Campo obrigatório"),
+    cpf: yup.string().test(
+			"Check CPF", "Cpf Inválido", (value) => {
+				return new Promise((resolve, reject) => {
+					if(isValidCPF(value)){
+						resolve(true)
+						return
+					}
+					resolve(false)
+				})
+			}
+		) ,
     cellphone: yup.string().required("Campo obrigatório"),
-    email: yup.string().required("Campo obrigatório"),
+    email: yup.string().email('E-mail inválido').required("Campo obrigatório"),
     cep: yup.string().required("Campo obrigatório"),
     address: yup.string().required("Campo obrigatório"),
     city: yup.string().required("Campo obrigatório"),
