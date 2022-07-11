@@ -16,18 +16,18 @@ import styles from "./styles.module.scss";
 
 export default function Cart() {
   const store = useAppSelector((store: RootState) => store);
-	const dispatch = useDispatch();
-	const { openModal, closeModal, isModalOpen } = useAsideContext()
-	const schema = yup.object({
-		name: yup.string().required('Campo obrigatório'),
-		cpf: yup.string().required('Campo obrigatório'),
-		cellphone: yup.string().required('Campo obrigatório'),
-		email: yup.string().required('Campo obrigatório'),
-		cep: yup.string().required('Campo obrigatório'),
-		address: yup.string().required('Campo obrigatório'),
-		city: yup.string().required('Campo obrigatório'),
-		state: yup.string().required('Campo obrigatório')
-	})
+  const dispatch = useDispatch();
+  const { openModal, closeModal, isModalOpen } = useAsideContext();
+  const schema = yup.object({
+    name: yup.string().required("Campo obrigatório"),
+    cpf: yup.string().required("Campo obrigatório"),
+    cellphone: yup.string().required("Campo obrigatório"),
+    email: yup.string().required("Campo obrigatório"),
+    cep: yup.string().required("Campo obrigatório"),
+    address: yup.string().required("Campo obrigatório"),
+    city: yup.string().required("Campo obrigatório"),
+    state: yup.string().required("Campo obrigatório"),
+  });
 
   const total = store.cart.movies.reduce((acc, item) => {
     return acc + item.quantity * item.price;
@@ -39,14 +39,12 @@ export default function Cart() {
 
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-	
-	const [name, setName] = useState('')
-	const onSubmit: SubmitHandler<FormData> = (data) => {
-    setName(data.name)
-		openModal()
-		
-  };
 
+  const [name, setName] = useState("");
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    setName(data.name);
+    openModal();
+  };
 
   return (
     <div>
@@ -56,119 +54,128 @@ export default function Cart() {
       <Header />
       <main className="routes">
         <div className={styles.container}>
-					<form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <h1>Finalizar Compra</h1>
-          </div>
-          <div className={styles.above}>
-            <div className={styles["inputs-container"]}>
-              <Input
-                placeholder="Nome Completo"
-                control={control}
-                name={"Nome Completo"}
-                fieldName="name"
-                error={errors.name && errors.name.message}
-                required
-              />
-              <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <h1>Finalizar Compra</h1>
+            </div>
+            <div className={styles.above}>
+              <div className={styles["inputs-container"]}>
                 <Input
-                  placeholder="CPF"
+                  placeholder="Nome Completo"
                   control={control}
-                  name={"CPF"}
-                  fieldName="cpf"
-                  error={errors.cpf && errors.cpf.message}
+                  name={"Nome Completo"}
+                  fieldName="name"
+                  error={errors.name && errors.name.message}
                   required
-									mask="999.999.999-99"
                 />
-                <Input
-                  placeholder="Celular"
-                  control={control}
-                  name={"Celular"}
-                  fieldName="cellphone"
-                  error={errors.cellphone && errors.cellphone.message}
-                  required
-									mask="(99) 99999-9999"
-                />
-              </div>
-              <Input
-                placeholder="E-mail"
-                control={control}
-                name={"E-mail"}
-                fieldName="email"
-                error={errors.email && errors.email.message}
-                required
-              />
-              <div className={styles.address}>
-                <div className={styles.addressCode}>
+                <div>
                   <Input
-                    placeholder="CEP"
+                    placeholder="CPF"
                     control={control}
-                    name={"CEP"}
-                    fieldName="cep"
-                    error={errors.cep && errors.cep.message}
+                    name={"CPF"}
+                    fieldName="cpf"
+                    error={errors.cpf && errors.cpf.message}
                     required
-										mask="99999-999"
+                    mask="999.999.999-99"
+                  />
+                  <Input
+                    placeholder="Celular"
+                    control={control}
+                    name={"Celular"}
+                    fieldName="cellphone"
+                    error={errors.cellphone && errors.cellphone.message}
+                    required
+                    mask="(99) 99999-9999"
                   />
                 </div>
-                <div className={styles.street}>
+                <Input
+                  placeholder="E-mail"
+                  control={control}
+                  name={"E-mail"}
+                  fieldName="email"
+                  error={errors.email && errors.email.message}
+                  required
+                />
+                <div className={styles.address}>
+                  <div className={styles.addressCode}>
+                    <Input
+                      placeholder="CEP"
+                      control={control}
+                      name={"CEP"}
+                      fieldName="cep"
+                      error={errors.cep && errors.cep.message}
+                      required
+                      mask="99999-999"
+                    />
+                  </div>
+                  <div className={styles.street}>
+                    <Input
+                      placeholder="Endereço"
+                      control={control}
+                      name={"Endereço"}
+                      fieldName="address"
+                      error={errors.address && errors.address.message}
+                      required
+                    />
+                  </div>
+                </div>
+                <div>
                   <Input
-                    placeholder="Endereço"
+                    placeholder="Cidade"
                     control={control}
-                    name={"Endereço"}
-                    fieldName="address"
-                    error={errors.address && errors.address.message}
+                    name={"Cidade"}
+                    fieldName="city"
+                    error={errors.city && errors.city.message}
+                    required
+                  />
+                  <Input
+                    placeholder="Estado"
+                    control={control}
+                    name={"Estado"}
+                    fieldName="state"
+                    error={errors.state && errors.state.message}
                     required
                   />
                 </div>
               </div>
-              <div>
-                <Input
-                  placeholder="Cidade"
-                  control={control}
-                  name={"Cidade"}
-                  fieldName="city"
-                  error={errors.city && errors.city.message}
-                  required
-                />
-                <Input
-                  placeholder="Estado"
-                  control={control}
-                  name={"Estado"}
-                  fieldName="state"
-                  error={errors.state && errors.state.message}
-                  required
-                />
+              <div className={styles["total-container"]}>
+                <div className={styles.table}>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th className={styles.left}>Imagem</th>
+                        <th className={styles.left}>Nome</th>
+                        <th className={styles.center}>Qtd</th>
+                        <th className={styles.center}>Preço</th>
+                        <th></th>
+                      </tr>
+                      {store.cart.movies?.length > 0 &&
+                        store.cart.movies.map((item) => {
+                          return <MovieCartCard item={item} key={item.id} />;
+                        })}
+                    </tbody>
+                  </table>
+                  {store.cart.movies.length === 0 && (
+                    <div className={styles.emptyCart}>
+                      <p>Seu carrinho está vazio</p>
+                    </div>
+                  )}
+                </div>
+                <div className={styles.totalPrice}>
+                  <h2>Total</h2>
+                  <h1>{formatCurrency(total.toFixed(2))}</h1>
+                </div>
+                <div className={styles["btn-container"]}>
+                  <PrimaryButton label="Finalizar" type={"submit"} />
+                </div>
               </div>
             </div>
-            <div className={styles["total-container"]}>
-              <div className={styles.table}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th className={styles.left}>Imagem</th>
-                      <th className={styles.left}>Nome</th>
-                      <th className={styles.center}>Qtd</th>
-                      <th className={styles.center}>Preço</th>
-                      <th></th>
-                    </tr>
-                    {store.cart.movies?.length > 0 &&
-                      store.cart.movies.map((item) => {
-                        return <MovieCartCard item={item} key={item.id} />;
-                      })}
-                  </tbody>
-                </table>
-              </div>
-              <div className={styles.totalPrice}>
-                <h2>Total</h2>
-                <h1>{formatCurrency(total.toFixed(2))}</h1>
-              </div>
-              <div className={styles["btn-container"]}>
-                <PrimaryButton label="Finalizar" type={'submit'} />
-              </div>
-            </div>
-          </div>
-					</form>
-					<CompleteModal isOpen={isModalOpen} name={name} closeModal={closeModal}/>
+          </form>
+          <CompleteModal
+            isOpen={isModalOpen}
+            name={name}
+            closeModal={closeModal}
+          />
         </div>
       </main>
     </div>

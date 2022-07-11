@@ -39,7 +39,14 @@
 	
 }
 
-
+.emptyCart{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	align-items: center;
+	padding: 4rem 0;
+	text-align: center;
+}
 
 .total-container{
 	display: flex;
@@ -76,6 +83,7 @@
 	display: flex;
 	align-items: flex-start;
 	width: 100%;
+	flex-direction: column;
 	table{
 		width: 100%;
 		border-collapse: collapse; 
