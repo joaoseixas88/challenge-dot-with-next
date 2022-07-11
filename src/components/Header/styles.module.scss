@@ -6,6 +6,7 @@
 	background: var(--primaryGreen);
 	height: 3.25rem;
 	padding: 0 2.5rem;
+	
 }
 
 .logo{
@@ -25,7 +26,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
+	
 
 	div{
 		display: flex;
@@ -33,9 +34,13 @@
 		background: var(--shape);
 		padding: .2rem .5rem;
 		width: 40%;
+		border-radius: 5px;
+		@media (max-width: 1120) {
+			width: 60%;
+		}
 
 		@media (max-width: 769px) {
-			width: 70%;
+			width: 90%;
 		}
 	}
 
@@ -61,6 +66,7 @@
 		
 	}
 
+	
 	
 }
 
