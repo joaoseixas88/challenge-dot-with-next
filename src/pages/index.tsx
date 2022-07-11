@@ -6,36 +6,40 @@ import { MovieCard } from "../components/MovieCard";
 import { api } from "../services/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { PrimaryButton } from "../components/PrimaryButton";
+import { useMovies } from "../hooks/MoviesContext";
 
-interface Movie {
-  
-		id: number
-    title: string;
-		release_date: string
-		vote_average: number
-		poster_path: string
-		price: string
-  
+export interface Movie {
+  id: number;
+  title: string;
+  release_date: string;
+  vote_average: number;
+  poster_path: string;
+  price: string;
 }
 
-
-
 const Home = () => {
+  const [page, setPage] = useState(1);
+	// const 
+  // const [movies, setMovies] = useState<Movie[]>([]);
+	const {movies, setMovies} = useMovies()
 
-	const [page, setPage] = useState(1)
-	const [movies, setMovies] = useState<Movie[]>([])
+  useEffect(() => {
+    axios.get(`/api/movies/${page}`).then((res) => {
+      setMovies([...res.data.data]);
+			setPage(page+1)
+    });
+  }, []);
 
-		
-	useEffect(() => {		
-		axios.get(`/api/movies/${page}`).then(res => {
-			setMovies([...res.data.data])
-			console.log(movies)
-		})		
-		
-	},[])
+	function handleLoadMore(){
+		axios.get(`/api/movies/${page}`).then((res) => {
+      setMovies([...movies,...res.data.data]);
+			setPage(page+1)
+    });
+	}
 
-	console.log(movies)
-  
+	
+
   return (
     <div>
       <Head>
@@ -46,28 +50,18 @@ const Home = () => {
       <Header />
       <main className="routes">
         <div className={styles.container}>
-					
-          {
-						movies.map(item => {
-							return <MovieCard 
-								key={item.id}
-								id={item.id}
-								poster_path={item.poster_path}
-								price={item.price}
-								title={item.title}
-								vote_average={item.vote_average								
-								}
-							/>
-						})
-					}        
+          {movies.map((item) => {
+            return <MovieCard key={item.id} item={item} />;
+          })}
         </div>
       </main>
+      <div className={styles["btn-container"]}>
+        <div>
+          <PrimaryButton label="Carregar mais" onClick={handleLoadMore}/>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Home
-
-
-
-
+export default Home;

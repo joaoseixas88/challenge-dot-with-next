@@ -3,4 +3,23 @@
 	justify-content: space-between;
 	padding: 1rem 0;
 	width: 100%;
+	div{
+		display: flex;
+		justify-content: center;
+		flex: 1
+		
+	}
+	p{
+		font-size: 10px;
+	}
+	
 }
+
+.trash{
+	cursor: pointer;
+}
+
+.title{
+	width: 50%;
+}
+

@@ -3,15 +3,16 @@
 	align-items: flex-start;
 	flex-direction: column;
 	justify-content: center;
-	padding: 1rem;
+	padding: 1rem .5rem;
 	position: fixed;
 	top: 3.25rem;
 	right: 1rem;
-	width: 17.5rem;
+	width: 20rem;
 	height: 90%;
 	overflow: hidden;
 	background: var(--shape);
 	border: 2px solid var(--borderColor);
+	overflow: scroll;
 	transition: .4s;	
 }
 

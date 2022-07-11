@@ -1,0 +1,13 @@
+.container{
+	display: flex;
+	flex-direction: column;
+	background: var(--shape);
+	height: 15rem;
+	text-align: center;
+	justify-content: space-around;
+	border: 3px solid var(--borderColor);
+	padding: 1rem;
+	div{
+		height: 2.5rem;
+	}
+}

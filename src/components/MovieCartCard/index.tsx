@@ -1,20 +1,38 @@
 /* eslint-disable jsx-a11y/alt-text */
-import styles from './styles.module.scss'
-import Image from 'next/image'
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash } from "react-icons/fa";
+import { formatCurrency } from "../../utils/format";
+import styles from "./styles.module.scss";
+import Image from "next/image";
 
-export function MovieCartCard(){
-	return(
-		<tr className={styles.container}>
-			<td className={styles.left}>
-				<Image src={'https://picsum.photos/200/300'} width={68} height={60}/>
-			</td>
-			<td className={styles.left}>Filme x</td>
-			<td className={styles.center}>2 </td>
-			<td className={styles.center}>R$ 19,98 </td>
-			<td className={styles.center}>
-				<FaTrash color={'#4b5c6b'} />
-			</td>
-		</tr>
-	)
+interface Props {
+  item: {
+		id: number;
+		poster_path: string;
+		title: string;
+		vote_average: number;
+		price: number;
+		quantity: number;
+  };
+}
+
+export function MovieCartCard({ item }: Props) {
+	
+  return (
+    <tr className={styles.container}>
+      <td className={styles.left}>
+				
+        <Image
+          src={item.poster_path ? item.poster_path : ""}
+          width={68}
+          height={60}
+        />
+      </td>
+      <td className={styles.left}>{item.title}</td>
+      <td className={styles.center}>{item.quantity}</td>
+      <td className={styles.center}>{formatCurrency(String(item.price))}</td>
+      <td className={styles.center}>
+        <FaTrash color={"#4b5c6b"} />
+      </td>
+    </tr>
+  );
 }

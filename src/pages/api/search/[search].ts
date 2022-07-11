@@ -9,17 +9,16 @@ interface Result {
   poster_path: string;
 }
 
-export default async function handle(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {
-  const api_key = process.env.API_KEY;
-  const { page } = req.query;
-  const response = await axios.get(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=pt-Br&page=${page}`
+){
+	const api_key = process.env.API_KEY;
+	const { search } = req.query;
+	const response = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&language=pt-BR&query=${search}&page=1&include_adult=false`
   );
-
-  const results = response.data.results;
+	const results = response.data.results
 
 	function randomPrice(){
 		const number = Math.random() * 100
@@ -27,7 +26,7 @@ export default async function handle(
 		return fixed
 	}
 
-  const formattedData = results.map((item: Result) => {
+	const formattedData = results.map((item: Result) => {
     return {
       id: item.id,
       poster_path: `https://image.tmdb.org/t/p/w185${item.poster_path}`,
@@ -37,6 +36,10 @@ export default async function handle(
       price: randomPrice()
     };
   });
+	
 
-  return res.status(200).json({ data: formattedData });
+	return res.status(200).json(formattedData);
 }
+
+
+

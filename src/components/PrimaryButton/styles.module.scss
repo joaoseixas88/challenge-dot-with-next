@@ -10,4 +10,8 @@
 	color: var(--shape);
 	font-size: 1rem;
 	border: none;
+
+	&:active:after{
+		opacity: 1;
+	}
 }

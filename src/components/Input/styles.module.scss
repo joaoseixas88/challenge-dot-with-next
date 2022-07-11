@@ -1,7 +1,39 @@
 .container{
 	width: 100%;
 	border: 2px solid var(--borderColor);
-	padding: 1rem;
+	padding: 0 .5rem;
 	border-radius: 5px;
-	outline: none;
+	align-items: center;
+	text-align: center;
+	input{
+		outline: none;
+		border: none;
+		height: 2.5rem;
+		width: 100%;
+	}
+	p{
+		font-size: 8px;
+		color: red
+	}
+	
+}
+
+.container-required{
+	width: 100%;
+	border: 2px solid red;
+	padding: 0 .5rem;
+	border-radius: 5px;
+	align-items: center;
+	text-align: center;
+	input{
+		outline: none;
+		border: none;
+		height: 2.5rem;
+		width: 100%;
+	}
+	p{
+		font-size: 8px;
+		color: red
+	}
+	
 }

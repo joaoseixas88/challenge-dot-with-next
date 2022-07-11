@@ -1,26 +1,61 @@
+/* eslint-disable jsx-a11y/alt-text */
 import Image from "next/image";
 import Logo from "../../../public/tmdb.svg";
 import styles from "./styles.module.scss";
 import { BsSearch } from "react-icons/bs";
-import { AiFillHeart } from 'react-icons/ai';
-import { RiShoppingCart2Fill } from 'react-icons/ri';
+import { AiFillHeart } from "react-icons/ai";
+import { RiShoppingCart2Fill } from "react-icons/ri";
 import { CartAside } from "../CartAside";
 import { useState } from "react";
 import { FavoriteAside } from "../FavoriteAside";
+import { useSelector } from "react-redux";
+import { RootState, useAppSelector } from "../../store/store";
+import { useAsideContext } from "../../hooks/AsidesContext";
+import axios from "axios";
+import { Movie } from "../../pages";
+import { useMovies } from "../../hooks/MoviesContext";
+
 
 export function Header() {
 
-	const [cartAsideIsOpen, setCartAsideIsOpen] = useState(false)
-	const [favoriteAsideIsOpen, setFavoriteAsideIsOpen] = useState(false)
 
-	const handleSetCartAside = () => {
-		setFavoriteAsideIsOpen(false)
-		setCartAsideIsOpen(!cartAsideIsOpen)
-	}
+  const {
+    closeCart,
+    closeFavorite,
+    openCart,
+    openFavorite,
+    isAsideCartOpen,
+    isAsideFavoriteOpen,
+  } = useAsideContext();
+	const { setMovies } = useMovies()
+  const store = useAppSelector<RootState>((store) => store);
+	const [search, setSearch] = useState('')
+  const quantity = store.cart.movies.reduce((acc, item) => {
+    return acc + item.quantity;
+  }, 0);
 
-	const handleSetFavoriteAside = () => {
-		setCartAsideIsOpen(false)
-		setFavoriteAsideIsOpen(!favoriteAsideIsOpen)
+  const handleSetCartAside = () => {
+    closeFavorite();
+    isAsideCartOpen ? closeCart() : openCart();
+  };
+
+  const handleSetFavoriteAside = () => {
+    closeCart();
+    isAsideFavoriteOpen ? closeFavorite() : openFavorite();
+  };
+	
+	// function handleLoadMore(){
+	// 	axios.get(`/api/movies/${page}`).then((res) => {
+  //     setMovies([...movies,...res.data.data]);
+	// 		setPage(page+1)
+  //   });
+	// }
+
+	 function handleSearch(){
+
+		axios.get(`/api/search/${search}`).then((res) => {
+      setMovies([...res.data])			
+		})
 	}
 
   return (
@@ -30,31 +65,31 @@ export function Header() {
       </div>
       <div className={styles.searchBox}>
         <div>
-          <input />
-          <BsSearch />
+          <input onChange={e => setSearch(e.target.value)}/>
+          <BsSearch style={{cursor: 'pointer'}} onClick={handleSearch}/>
         </div>
       </div>
       <div className={styles.icons}>
-			<AiFillHeart
-          color={'#FFF'}
+        <AiFillHeart
+          color={"#FFF"}
           size={24}
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
           onClick={() => handleSetFavoriteAside()}
         />
-        <div >
+        <div>
           <RiShoppingCart2Fill
-            color={'#FFF'}
+            color={"#FFF"}
             size={24}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
             onClick={() => handleSetCartAside()}
           />
-          <div className={styles['total-notification']}>
-            2
-          </div>
+          {quantity > 0 && (
+            <div className={styles["total-notification"]}>{quantity}</div>
+          )}
         </div>
-				<FavoriteAside isActive={favoriteAsideIsOpen}/>
-				<CartAside isActive={cartAsideIsOpen}/>
-			</div>
+        <FavoriteAside />
+        <CartAside />
+      </div>
     </header>
   );
 }

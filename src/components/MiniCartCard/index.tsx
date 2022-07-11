@@ -3,30 +3,60 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import { HiShoppingCart } from "react-icons/hi";
 import { BsFillTrash2Fill } from "react-icons/bs";
+import { formatCurrency } from "../../utils/format";
+import { useDispatch } from "react-redux";
+import { addMovie, removeMovie } from "../../store/slices/cart";
+import { removeFavorite } from "../../store/slices/favorites";
 
-interface Props{
-	showCart?: boolean
+interface Props {
+  showCart?: boolean;
+  item: {
+    id: number;
+    poster_path: string;
+    title: string;
+    vote_average: number;
+    price: number;
+		quantity?: number
+  };
 }
 
-export function MiniCartCard({ showCart = false}:Props) {
+export function MiniCartCard({ showCart = false, item }: Props) {
+  const imageUri = item.poster_path ? item.poster_path : ''
+	
+	const dispatch = useDispatch()
+	
+
+  function addToCart() {
+    dispatch(addMovie(item));
+  }
+
   return (
     <div className={styles.container}>
-      <div>
-        <Image src="https://picsum.photos/200/300" width={32} height={32} />
+      <div>				
+        <Image
+          src={imageUri}
+          alt="movie"
+          width={32}
+          height={32}
+        />
+				
+      </div>
+      <div className={styles.title}>
+        <p>{item?.title}</p>
       </div>
       <div>
-        <p>Nome do filme</p>
+        {!showCart && <p>{formatCurrency(String(item?.price))}</p>}
       </div>
-      <div>
-        <p>19,90</p>
+			<div>
+        {!showCart && <p>Qtd:{item.quantity}</p>}
       </div>
-      { showCart &&
-        <div>
-          <HiShoppingCart color="#1aae9f" />
+      {showCart && (
+        <div style={{cursor: 'pointer'}}>
+          <HiShoppingCart color="#1aae9f" onClick={addToCart}/>
         </div>
-      }
-      <div>
-        <BsFillTrash2Fill color="#4b5c6b" />
+      )}
+      <div className={styles.trash}>
+        <BsFillTrash2Fill color="#4b5c6b" onClick={showCart ? () => dispatch(removeFavorite(item)) :() => dispatch(removeMovie(item))}/>
       </div>
     </div>
   );

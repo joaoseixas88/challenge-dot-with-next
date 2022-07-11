@@ -13,3 +13,21 @@
 
 	}
 }
+
+
+.btn-container{
+	position: relative;
+	display: flex;
+	width: 100%;
+	padding-bottom: 2rem;
+	div{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-grow: 1;
+	}
+	button{
+		width: 50%;
+		height: 2.5rem;
+	}
+}
